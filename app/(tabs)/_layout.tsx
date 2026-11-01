@@ -10,6 +10,7 @@ import { Tabs } from 'expo-router';
 import { useAtomValue } from 'jotai/react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ReturnToMushafButton } from '@/components';
 import { Colors } from '@/constants/Colors';
 import { bottomMenuState } from '@/jotai/atoms';
 
@@ -43,6 +44,11 @@ export default function TabLayout() {
         name="lists"
         options={{
           title: 'الفهرس',
+          // A header with an explicit return keeps the list from being a dead
+          // end when the bottom tab bar is hidden.
+          headerShown: true,
+          headerTitleStyle: { fontFamily: 'Tajawal_700Bold' },
+          headerLeft: () => <ReturnToMushafButton />,
           tabBarIcon: ({ color, focused }) => (
             <MaterialCommunityIcons
               name={focused ? 'view-list' : 'view-list-outline'}

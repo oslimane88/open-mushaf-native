@@ -14,6 +14,7 @@ export * from './PrivacyContentArabic';
 export * from './PrivacyContentEnglish';
 export * from './ReadingChart';
 export * from './ReadingPositionBanner';
+export * from './ReturnToMushafButton';
 export * from './SearchAdvancedOptions';
 export * from './searchColorLegend';
 export * from './SearchEmptyState';

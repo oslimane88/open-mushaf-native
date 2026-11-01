@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Stack, useNavigation, useRouter } from 'expo-router';
 
 import {
   PageNavigator,
+  ReturnToMushafButton,
   Seo,
   SurahAyaNavigator,
   ThemedText,
@@ -15,6 +16,7 @@ import { useColors, useCurrentPage, useQuranMetadata } from '@/hooks';
 
 export default function Navigation() {
   const router = useRouter();
+  const navigation = useNavigation();
   const { currentPage } = useCurrentPage();
 
   const [currentSurah, setCurrentSurah] = useState<number>(1);
@@ -119,6 +121,11 @@ export default function Navigation() {
 
   return (
     <ThemedView style={styles.container}>
+      {!navigation.canGoBack() && (
+        <Stack.Screen
+          options={{ headerLeft: () => <ReturnToMushafButton /> }}
+        />
+      )}
       <Seo
         title="المصحف المفتوح - التنقل"
         description="تصفح صفحات وسور وآيات القرآن الكريم بسهولة باستخدام واجهة التنقل في المصحف المفتوح"

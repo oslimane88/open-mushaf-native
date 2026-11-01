@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useColors, useOrientation } from '@/hooks';
+import { useColors } from '@/hooks';
 import { ListTabs } from '@/types';
 
 import { ThemedText } from './ThemedText';
@@ -27,8 +27,8 @@ type Props = {
  */
 export function TopTabs({ activeTab, setActiveTab }: Props) {
   const { backgroundColor, textColor } = useColors();
-  const { top, left, right } = useSafeAreaInsets();
-  const { isLandscape } = useOrientation();
+  // The lists screen header owns the top safe area.
+  const { left, right } = useSafeAreaInsets();
 
   const handleTabPress = (tab: ListTabs) => {
     setActiveTab(tab);
@@ -39,7 +39,6 @@ export function TopTabs({ activeTab, setActiveTab }: Props) {
       style={[
         styles.container,
         {
-          paddingTop: isLandscape ? 0 : top,
           paddingLeft: left,
           paddingRight: right,
         },

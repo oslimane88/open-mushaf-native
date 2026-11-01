@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 
+import { Stack, useNavigation } from 'expo-router';
+
 import morphologyDataRaw from '@/assets/search/quran-morphology.json';
 import wordMapJSON from '@/assets/search/word-map.json';
 import {
+  ReturnToMushafButton,
   SearchAdvancedOptions,
   SearchColorLegend,
   SearchEmptyState,
@@ -29,6 +32,7 @@ const WORD_MAP = new Map(
 ) as import('quran-search-engine').WordMap;
 
 export default function Search() {
+  const navigation = useNavigation();
   const { quranData, isLoading, error } = useQuranMetadata();
   const { tintColor, primaryColor, secondaryColor, dangerColor } = useColors();
 
@@ -152,6 +156,11 @@ export default function Search() {
 
   return (
     <ThemedView style={styles.container}>
+      {!navigation.canGoBack() && (
+        <Stack.Screen
+          options={{ headerLeft: () => <ReturnToMushafButton /> }}
+        />
+      )}
       <SearchInput
         value={inputText}
         onChangeText={(text: string) => {
